@@ -139,11 +139,12 @@ SELECT count(*) FROM dicta;
 -- *12. Nota máxima obtenida en el curso ‘’Python I‘’.
 SELECT MAx(Nota) from insc where Nom='Python I';
 --13. Nombre de los cursos ordenados por nombre.
-SELECT Nom from curso ORDER BY Nom ASC
+SELECT Nom from curso ORDER BY Nom ASC;
 
 --14. Nombre del curso que tiene una carga horaria superior a la de todos los cursos que dicta “pedroibañez@yahoo.com.ar”.
-
+SELECT Nom FROM curso WHERE Ch > (SELECT MAX(Ch) FROM curso WHERE Nom IN (SELECT Nom FROM dicta WHERE Correo = 'pedroibañez@yahoo.com.ar'));
 15. Personas, docentes o alumnos(todos sus datos) que se llama Rosa
+SELECT * FROM dicta;
 16. Cursos que tienen una carga horaria superior a la del curso “Kotlin I”, ordenados descendentemente por cantidad de
 horas.
 17. Cursos (todos los datos) cuya carga horaria sea superior a las 40 horas reloj.
