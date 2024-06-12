@@ -215,20 +215,55 @@ WHERE
 
 
 --*13. Especifique la Vista “ObrasCuyoNorte” que contenga Co (código de la obra), Direc(dirección de la obra) y EmpCon (empresa constructora) de las obras ubicadas en la zona Santa Lucia.
+CREATE VIEW
+	ObrasCuyoNorte as
+SELECT
+	co,
+	direc,
+	empcon
+from
+	obras
+WHERE
+	zona = 'Santa Lucia';
 
-CREATE VIEW ObrasCuyoNorte as SELECT co, direc,empcon from obras WHERE zona='Santa Lucia';
-SELECT * FROM ObrasCuyoNorte;
+
+SELECT
+	*
+FROM
+	ObrasCuyoNorte;
+
 
 --*14. Especifique la Vista “ObrasMat” que contenga Obra (código de la obra), Empresa (empresa constructora), Material (descripción del material) y CantMat (cantidad de materiales pedidos).
+CREATE VIEW
+	ObrasMat as
+SELECT
+	obras.co,
+	obras.empcon,
+	pedidos.cant,
+	materiales.descrip
+from
+	obras
+	left join pedidos on pedidos.co = obras.co
+	left join materiales on materiales.cm = pedidos.cm;
 
-CREATE VIEW ObrasMat as SELECT obras.co,obras.empcon,pedidos.cant,materiales.descrip from obras left join pedidos on pedidos.co = obras.co left join materiales on materiales.cm = pedidos.cm;
 
 --*a. Muestre los datos contenidos en la vista, ordenados según obra (descendente) y material (ascendente).
+SELECT
+	*
+FROM
+	ObrasMat
+ORDER by
+	co desc,
+	descrip asc;
 
-SELECT * FROM ObrasMat ORDER by co desc, descrip asc;
 
 --*b. Actualice la cantidad de materiales pedidos de las obras incrementándolas en 100.*/
+SELECT
+	*
+FROM
+	pedidos;
 
-SELECT * FROM pedidos;
 
-UPDATE pedidos set cant = cant + 100;
+UPDATE pedidos
+set
+	cant = cant + 100;
